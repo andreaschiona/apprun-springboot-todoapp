@@ -25,7 +25,7 @@ const App = () => <div class="container">
           <a class="nav-link" href="#About">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#Shops">Shops</a>
+          <a class="nav-link" href="#Contact">Contact</a>
         </li>
       </ul>
     </div>
@@ -37,7 +37,7 @@ app.render(document.getElementById('main'), <App />);
 
 import Home from './Home';
 import About from './About';
-import Contact from './Shops';
+import Contact from './Contact';
 
 const element = 'my-app';
 new Home().start(element);
