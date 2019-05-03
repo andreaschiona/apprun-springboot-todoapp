@@ -1,0 +1,66 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+plugins {
+	id 'org.springframework.boot' version '2.1.4.RELEASE'
+	id 'java'
+	id 'org.siouan.frontend' version '1.1.1' apply false
+
+}
+
+// HACK: the 'frontend plugin' don't work on OS X yet
+if (!Os.isFamily(Os.FAMILY_MAC)) {
+	apply plugin: 'org.siouan.frontend'
+}
+apply plugin: 'io.spring.dependency-management'
+
+group = 'it.andreaschiona'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation "org.springframework.boot:spring-boot-starter-web"
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//  Per esporre servizi REST HAL
+	//implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// Solo per navigare i servizi REST HAL STYLE
+	//implementation 'org.springframework.data:spring-data-rest-hal-browser'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+	implementation 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// ##### SWAGGER
+	// Abilita doc swagger
+	compile "io.springfox:springfox-swagger2:2.9.2"
+	// Abilitare la visualizzazione in swagger della validazione dei bean
+	compile "io.springfox:springfox-bean-validators:2.9.2"
+	// UI Swagger
+	compile "io.springfox:springfox-swagger-ui:2.9.2"
+
+	// Libreria di utilità
+	compile "org.apache.commons:commons-lang3:3.4"
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+// HACK: the 'frontend plugin' don't work on OS X yet
+if (!Os.isFamily(Os.FAMILY_MAC)) {
+	frontend {
+		nodeVersion = '6.9.0'
+		cleanScript = 'run clean'
+		assembleScript = 'run build'
+		checkScript = 'run check'
+	}
+	bootRun.dependsOn assembleFrontend
+}
