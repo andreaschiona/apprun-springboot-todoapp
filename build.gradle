@@ -54,6 +54,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+springBoot {
+	buildInfo()
+}
+
 // HACK: the 'frontend plugin' don't work on OS X yet
 if (!Os.isFamily(Os.FAMILY_MAC)) {
 	frontend {
