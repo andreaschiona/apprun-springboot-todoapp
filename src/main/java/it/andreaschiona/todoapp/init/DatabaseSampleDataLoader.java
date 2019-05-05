@@ -27,6 +27,13 @@ public class DatabaseSampleDataLoader implements CommandLineRunner {
         todo1.setCreationDate(new Date());
         todo1.setStatus(EnumStatus.OPEN);
         this.repository.save(todo1);
+
+        Todo todo2 = new Todo();
+        todo2.setName("Dummy Todo 2");
+        todo2.setDescription("My second Todo");
+        todo2.setCreationDate(new Date());
+        todo2.setStatus(EnumStatus.OPEN);
+        this.repository.save(todo2);
     }
 
 }
