@@ -5,29 +5,27 @@ export default class HomeComponent extends Component {
 
   Todo = ({todo}) => (
     <tr id={todo.id} key={todo.id}>
-      <td className="col-md-1">{todo.id}</td>
-      <td className="col-md-1">
-          <a className="lbl">{todo.name}</a>
-      </td>
-      <td className="col-md-2">{todo.description}</td>
-      <td className="col-md-1">{todo.status}</td>
-      <td className="col-md-1">{todo.creationDate}</td>
-      <td className="col-md-1">{todo.closedDate}</td>
+      <td>{todo.id}</td>
+      <td>{todo.name}</td>
+      <td>{todo.description}</td>
+      <td>{todo.status}</td>
+      <td>{todo.creationDate}</td>
+      <td>{todo.closedDate}</td>
     </tr>
   );
 
   view = (state) => {
     return <>
       {state.todolist ? 
-        <table>
+        <table class="table">
           <thead>
             <tr>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>State</th>
-              <th>Creation Date</th>
-              <th>Closed Date</th>
+              <th scope="col">Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">State</th>
+              <th scope="col">Creation Date</th>
+              <th scope="col">Closed Date</th>
           </tr>
           </thead>
           <tbody>

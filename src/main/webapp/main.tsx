@@ -1,4 +1,6 @@
 import app from 'apprun';
+import 'bootstrap';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 app.on('//', route => {
   const menus = document.querySelectorAll('.navbar-nav li');

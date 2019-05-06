@@ -24,7 +24,10 @@
     "webpack-dev-server": "^3.3.1"
   },
   "dependencies": {
-    "apprun": "^1.17.0"
+    "apprun": "^1.17.0",
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0"
   },
   "jest": {
     "transform": {
