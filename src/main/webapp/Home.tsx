@@ -14,6 +14,8 @@ export default class HomeComponent extends Component {
     </tr>
   );
 
+  
+
   view = (state) => {
     return <>
       <div>
@@ -51,7 +53,7 @@ export default class HomeComponent extends Component {
         </button>
       </div>
       <div class="modal-body mx-3">
-        <form onsubmit={e => this.run('submit-new-todo', e)}>
+        <form id="newtodo-form" onsubmit={e => this.run('createNewTodo', e)}>>
           <div class="md-form mb-5">
             <i class="fas fa-envelope prefix grey-text"></i>
             <input type="string" id="name" class="form-control validate" />
@@ -62,10 +64,10 @@ export default class HomeComponent extends Component {
             <input type="string" id="description" class="form-control validate" />
             <label data-error="wrong" data-success="right" for="description">Todo description</label>
           </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button class="btn btn-default" type="submit" id="save">Save</button>
+          </div>
         </form>
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-default" $onclick='saveTodo'>Save</button>
       </div>
     </div>
   </div>
@@ -86,9 +88,22 @@ export default class HomeComponent extends Component {
       return {todolist};
     },
 
-    'saveTodo': async state => {
-      const name = document.getElementById('name') as HTMLInputElement;
-      const description = document.getElementById('description') as HTMLInputElement;
+    'createNewTodo': async (state, e) => {
+      e.preventDefault();
+      let todo = {name: e.target["name"].value, description: e.target["description"].value};
+      console.log("Going to POST " + JSON.stringify(todo));    
+      fetch("/api/todo/",
+        {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(todo)
+        })
+      .then(res=>res.json())
+      .then(res => console.log(res))
+      .then(res => {true});
     },
 
     // function serializeObject<T>(form) {

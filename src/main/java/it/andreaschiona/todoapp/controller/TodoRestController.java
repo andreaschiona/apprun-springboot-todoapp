@@ -39,7 +39,7 @@ public class TodoRestController {
     @ApiOperation(value = "Create a new TODO")
     @PostMapping("/")
     public RestResponse addTodo(@Valid @RequestBody final CreateTodoRequest todoRequest) {
-        LOG.info("*** POST NEW TODO ");
+        LOG.info("*** POST NEW TODO: '{}''", todoRequest);
         Todo todo = new Todo();
         todo.setStatus(EnumStatus.OPEN);
         todo.setName(todoRequest.getName());
