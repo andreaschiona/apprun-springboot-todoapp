@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Api(tags = {"TODO"}, description = "Service for manage the TODO")
 @RestController
@@ -50,6 +51,49 @@ public class TodoRestController {
         RestResponse resp = new RestResponse();
         resp.setCode("0");
         resp.setMessage("TODO created");
+        return resp;
+    }
+
+    @ApiOperation(value = "Delete a TODO")
+    @DeleteMapping("/{todoId}")
+    public RestResponse addTodo(@PathVariable final String todoId) {
+        LOG.info("*** DELETE TODO BY ID: '{}''", todoId);
+        todoRepository.deleteById(Long.valueOf(todoId));
+
+        RestResponse resp = new RestResponse();
+        resp.setCode("0");
+        resp.setMessage("TODO created");
+        return resp;
+    }
+
+    @ApiOperation(value = "Close a TODO")
+    @PutMapping("/{todoId}/close")
+    public RestResponse closeTodo(@PathVariable final String todoId) {
+        LOG.info("*** PUT CLOSE TODO BY ID: '{}''", todoId);
+        Optional<Todo> todoOpt = todoRepository.findById(Long.valueOf(todoId));
+        Todo todo = todoOpt.get();
+        todo.setStatus(EnumStatus.CLOSED);
+        todo.setClosedDate(new Date());
+        todoRepository.save(todo);
+
+        RestResponse resp = new RestResponse();
+        resp.setCode("0");
+        resp.setMessage("TODO updated");
+        return resp;
+    }
+
+    @ApiOperation(value = "Set to running a TODO")
+    @PutMapping("/{todoId}/run")
+    public RestResponse runTodo(@PathVariable final String todoId) {
+        LOG.info("*** PUT RUN TODO BY ID: '{}''", todoId);
+        Optional<Todo> todoOpt = todoRepository.findById(Long.valueOf(todoId));
+        Todo todo = todoOpt.get();
+        todo.setStatus(EnumStatus.RUNNING);
+        todoRepository.save(todo);
+
+        RestResponse resp = new RestResponse();
+        resp.setCode("0");
+        resp.setMessage("TODO updated");
         return resp;
     }
 }

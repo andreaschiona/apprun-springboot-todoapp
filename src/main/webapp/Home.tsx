@@ -14,6 +14,12 @@ export default class HomeComponent extends Component {
       <td>{todo.status}</td>
       <td>{todo.creationDate}</td>
       <td>{todo.closedDate}</td>
+      <td> 
+        {todo.status == 'OPEN' && <a href="" class="btn btn-primary" onclick={()=>this.run('runTodo', todo.id)}>Run</a> }
+        {todo.status == 'RUNNING' && <a href="" class="btn btn-primary" onclick={()=>this.run('closeTodo', todo.id)}>Close</a> }
+        &nbsp;
+        <a href="" class="btn btn-primary" onclick={()=>this.run('deleteTodo', todo.id)}>Delete</a>
+      </td>
     </tr>
   );
 
@@ -33,6 +39,7 @@ export default class HomeComponent extends Component {
               <th scope="col">State</th>
               <th scope="col">Creation Date</th>
               <th scope="col">Closed Date</th>
+              <th scope="col">Action</th>
           </tr>
           </thead>
           <tbody>
@@ -104,7 +111,49 @@ export default class HomeComponent extends Component {
         })
       .then(res => res.json())
       .then(res => console.log(res))
-    }
+    },
+  
+  'deleteTodo': async (state, id) => {
+    const res = await fetch("/api/todo/" + id,
+        {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            method: "DELETE",
+            body: null
+        });
+    console.log(res.json());
+    app.run('#Home');
+  },
+
+  'closeTodo': async (state, id) => {
+    const res = await fetch("/api/todo/" + id + "/close",
+        {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            method: "PUT",
+            body: null
+        });
+    console.log(res.json());
+    app.run('#Home');
+  },
+
+  'runTodo': async (state, id) => {
+    const res = await fetch("/api/todo/" + id + "/run",
+        {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            method: "PUT",
+            body: null
+        });
+    console.log(res.json());
+    app.run('#Home');
+  }
   };
 }
 
