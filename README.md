@@ -1,19 +1,15 @@
-## AUTOGENERATE FROM APPRUN
+# SIMPLE TODO APP
 
-* Use _npm start_ to start the dev server
-* Use _npm test_ to run unit tests
-* Use _npm run build_ to build for production
+## INTRODUCTION
 
-This is an application built with [AppRun](https://github.com/yysun/apprun).
+This project implements a simple todo app that integrate [AppRun](https://github.com/yysun/apprun) as fron end in a Spring Boot project.
 
+## RUN THE PROJECT
 
-
-## NOTE
-
-_gradlew assemble_
-
-_gradlew bootRun_ 
-
+Simple run the gradle task `bootRun`:
+```
+gradlew bootRun
+```
 
 ## TODO
 
